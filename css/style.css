@@ -1,0 +1,96 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Anodyne';
+  src: url("/web-fonts/anodyne-webfont.eot");
+  /* IE9 Compat Modes */
+  src: url("/web-fonts/anodyne-webfont.eot?#iefix") format("embedded-opentype"), url("/web-fonts/anodyne-webfont.woff") format("woff"), url("/web-fonts/anodyne-webfont.ttf") format("truetype"); }
+/*
+*
+{
+	margin: 0;
+	border:0;
+	padding: 0;
+	font-family: "Palanquin", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Roboto", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-style: normal
+}
+body
+{
+	padding:0;
+	margin:0;
+	background:url(../images/wg_cracked_surface_texture_6.jpg) no-repeat fixed;
+	background-size:cover;
+}
+*/
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#main
+{
+    animation-duration: 0.7s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-name: fadeInUp;
+}
+.is-exiting {
+        animation-direction: alternate-reverse;
+}
+#menu
+{
+	list-style-type:none;
+	height:40px;
+	width:100%;
+	margin:auto;
+	padding-top:5px;
+	padding-bottom:5px;
+	z-index:99;
+	transition:700ms;
+}
+#menu li
+{
+	text-align:center;
+	float:left;
+	width:32%;
+	line-height:40px;
+	display:block;
+	font-size:1.5em;
+	font-weight:300;
+	letter-spacing:1.0px;
+	color:rgb(150,150,150);
+}
+#menu li a
+{
+	text-decoration:none;
+	color:inherit;
+	font-weight:inherit;
+    font-family: "Anodyne";
+    transition: 400ms;
+}
+#menu li a:hover
+{
+  color:dimgray;
+}
+.mediator
+{
+  width:2% !important;
+}
+
+@media (max-width:600px){
+  #menu li
+  {
+    width: 100%;
+  }
+  .mediator
+  {
+    display: none !important;
+  }
+}
