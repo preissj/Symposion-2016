@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+
+  <meta charset="utf-8">
+  <title>Harmonogram | Symposion GJK 2016</title>
+  <meta name="description" content="Symposion je přednáškové fórum pořádané studenty Gymnázia Jana Keplera. Letošní ročník se uskuteční ve dnech 16. - 18. listopadu 2016. Těšit se můžete na řadu osobností nejen české akademické scény.">
+  <meta name="author" content="Jan Preiss, Václav Volhejn">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+  <div  class="container">
+    
+    <!--menu-->
+    <nav>
+      <ul id="menu">
+        <li><a href="index.html">Domů</a></li>
+        <li class="mediator">//</li>
+        <li><a href="info.html">Informace</a></li>
+        <li class="mediator">//</li>
+        <li><a href="harmonogram.html">Harmonogram</a></li>
+      </ul>
+    </nav>
+    
+    <div id="main" class="row">
+      {{#days}}
+        <h4>{{name}}</h4>
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th class="centered">Čas</th>
+              <th class="centered">1. blok</th>
+              <th class="centered">2. blok</th>
+              <th class="centered">3. blok</th>
+              <th class="centered">4. blok</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#times}}
+          <tr>
+            <th>{{{timeslot}}}</th>  {{! neescapovat <br>}}
+            {{^events}}
+              <td colspan="4" class="centered">{{specialEvent}}</td>
+            {{/events}} {{#events}}
+              <td><a href="profilDemo.html?MichalSkrejpek">{{.}}</a></td>
+            {{/events}}
+          </tr>
+          {{/times}}
+          </tbody>
+        </table>
+      {{/days}}
+
+    </div>
+  </div>
+
+</body>
+</html>

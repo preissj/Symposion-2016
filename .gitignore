@@ -1,4 +1,7 @@
-
 .DS_Store
-
 images/.DS_Store
+scraper/client_secret.json
+scraper/node_modules
+scraper/sheetID.txt
+compile.sh
+*.sublime-*
