@@ -3,5 +3,7 @@ images/.DS_Store
 scraper/client_secret.json
 scraper/node_modules
 scraper/sheetID.txt
+scraper/data_demo.json
 compile.sh
 *.sublime-*
+mustache_cache
