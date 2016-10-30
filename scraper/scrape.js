@@ -110,7 +110,7 @@ function checkText (s) {
   }
   replaceAll('  ', ' ')
   if (s !== sOrig) {
-    console.error('Odstraněny mezery.')
+    console.error('Odstraněny dvojité mezery.')
   }
   ['“', '”', '„', '“', '´´'].forEach((c) => replaceAll(c, '"'))
   ;['‘', '’', '‚', '‘'].forEach((c) => replaceAll(c, "'"))
@@ -126,9 +126,21 @@ function checkText (s) {
   replaceAll('"(.*?)"', '„$1“')
   replaceAll("'(.*?)'", '‚$1‘')
   replaceAll(' - ', ' – ') // en dash
+  replaceAll('\\.\\.\\.', '…') // ellipsis
+  replaceAll('[ \\n]$', '')
+
+  /*
+  var bad = (s.match(/[\.?!,][^ ]| [\.?!,]/g) || [])
+  if (bad.length) {
+    console.error('Podezřelé mezery:')
+    console.dir(bad)
+    console.log(s)
+  }
+  */
+
   if (s !== sOrig) {
     console.log('Navrhované změny:')
-    let diff = jsdiff.diffChars(sOrig, s)
+    let diff = jsdiff.diffChars(sOrig + '$', s + '$')
     diff.forEach(function (part) {
       var color = part.added ? 'green'
         : part.removed ? 'red' : 'grey'
@@ -230,8 +242,8 @@ function scrape (auth) {
         json[key] = res[i][key]
       }
     }
-    console.dir(json, {depth: null})
-    // fs.writeFile('data.json', JSON.stringify(json))
+    // console.dir(json, {depth: null})
+    fs.writeFile('data_demo.json', JSON.stringify(json))
   })
 }
 
