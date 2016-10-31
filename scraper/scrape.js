@@ -169,6 +169,9 @@ function parseDetails (response) {
       talkDescription: formatText(row[4])
     }
   })
+  for(var i = 0; i < result.speakers.length; i++) {
+    result.speakers[i].id = i;
+  }
   return result
 }
 
