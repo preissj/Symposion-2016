@@ -85,6 +85,10 @@ th, .centered
 {
   text-align: center;
 }
+.justified
+{
+  text-align: justify;
+}
 .nemoc
 {
   padding: 30px 0 30px;
