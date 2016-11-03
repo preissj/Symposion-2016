@@ -18,5 +18,5 @@ if(is_null($to_send)) {
         );
 }
 
-echo $m->render('profil', $to_send); // "Hello, World!"
+echo $m->render('profil', $to_send);
 ?>

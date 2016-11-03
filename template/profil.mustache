@@ -29,7 +29,10 @@
     </nav>
     
     <div id="main" class="row justified">
-      <h4 class="topMarginated">{{fullName}}</h4>
+      <h4 class="topMarginated">
+      {{#fullName}}{{fullName}}{{/fullName}}
+      {{^fullName}}{{shortName}}{{/fullName}} {{! Nahradit krátkým jménem}}
+      </h4>
       {{{speakerDescription}}}
       <h5>{{talkName}}</h5>
       {{{talkDescription}}}
