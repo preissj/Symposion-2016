@@ -111,6 +111,15 @@ h5
 {
   color:rgb(233,97,102);
 }
+a
+{
+  color:rgb(233,97,102);
+  transition: 400ms;
+}
+a:hover
+{
+  color:rgb(150,150,150);
+}
 @media (min-width:600px){
   #menu li
   {
