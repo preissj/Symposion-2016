@@ -5,7 +5,9 @@ require('colors')
 var jsdiff = require('diff')
 var sheets = require('./sheets.js')
 
-function checkText (s, positionHint) {
+var setReq
+
+function checkText (s, positionHint, cell) {
   if (!s) return ''
   let sOrig = s
   let replaceAll = (from, to) => {
@@ -33,7 +35,7 @@ function checkText (s, positionHint) {
   replaceAll('[ \\n]$', '')
 
   if (s !== sOrig) {
-    console.log('Navrhované změny - ' + positionHint + ':')
+    console.log('Navrhované změny - ' + positionHint + ' (' + cell + '):')
     let diff = jsdiff.diffChars(sOrig + '$', s + '$')
     diff.forEach(function (part) {
       var color = part.added ? 'green'
@@ -41,12 +43,13 @@ function checkText (s, positionHint) {
       process.stderr.write(part.value[color])
     })
     console.log('\n' + s + '\n')
+    setReq(cell, s)
   }
   return s
 }
 
-function formatText (s, positionHint) {
-  s = checkText(s, positionHint)
+function formatText (s, positionHint, cell) {
+  s = checkText(s, positionHint, cell)
   s = markdown.toHTML(s)
   return s
 }
@@ -54,13 +57,13 @@ function formatText (s, positionHint) {
 function parseDetails (response) {
   var rows = response.values
   let result = {}
-  result.speakers = rows.map(row => {
+  result.speakers = rows.map((row, i) => {
     return {
       shortName: row[0],
       fullName: row[1],
-      speakerDescription: formatText(row[2], row[0]),
+      speakerDescription: formatText(row[2], row[0], 'C' + (i + 5)),
       talkName: row[3],
-      talkDescription: formatText(row[4], row[0])
+      talkDescription: formatText(row[4], row[0], 'E' + (i + 5))
     }
   })
   for (var i = 0; i < result.speakers.length; i++) {
@@ -110,10 +113,11 @@ function parseHarmonogram (response) {
 }
 
 function main () {
-  sheets.read((apiRequest) => {
+  sheets.read((getRequest, setRequest) => {
+    setReq = setRequest
     var promises = [
-      apiRequest('H5 - Medailony a anotace!A5:E', parseDetails),
-      apiRequest('H1 - Harmonogram!A2:H', parseHarmonogram)
+      getRequest('H5 - Medailony a anotace!A5:E', parseDetails),
+      getRequest('H1 - Harmonogram!A2:H', parseHarmonogram)
     ]
     Promise.all(promises).then((res) => {
       let json = {}

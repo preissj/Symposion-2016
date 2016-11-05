@@ -104,7 +104,7 @@ function scrape (auth, callback) {
   var id = fs.readFileSync('sheetID.txt')
   var sheets = google.sheets('v4')
 
-  let apiRequest = (range, action) => {
+  let getRequest = (range, action) => {
     return new Promise((resolve, reject) => {
       sheets.spreadsheets.values.get({
         auth: auth,
@@ -119,5 +119,46 @@ function scrape (auth, callback) {
       })
     })
   }
-  callback(apiRequest)
+
+  let setRequest = (range, values) => {
+    range = 'H5 - Medailony a anotace!' + range
+    return new Promise((resolve, reject) => {
+      console.log('Requested change of ' + range + ' to: ' + values.substr(0, 10) + '...')
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+      })
+      rl.question('Accept? y/n (n)', ans => {
+        rl.close()
+        if (ans === 'y' || ans === 'Y') {
+          sheets.spreadsheets.values.batchUpdate({
+            auth: auth,
+            spreadsheetId: id,
+            resource: {
+              valueInputOption: 'RAW',
+              data: [
+                {
+                  range: range,
+                  // majorDimension: majorDimension,
+                  values: [[values]]
+                }
+              ]
+            }
+          }, (err, response) => {
+            if (err) {
+              console.log('The API returned an error: ' + err)
+              reject(err)
+            } else {
+              console.log('Succesfully changed.')
+              resolve(response)
+            }
+          })
+        } else {
+          console.log('Cancelled.')
+        }
+      })
+    })
+  }
+
+  callback(getRequest, setRequest)
 }
