@@ -9,12 +9,16 @@ $m = new Mustache_Engine(array(
 
 $data_json = file_get_contents('scraper/data.json');
 $data = json_decode($data_json, true);
-$to_send = $data['speakers'][$_GET['id']];
+$to_send = $data['talks'][$_GET['id']];
 if(is_null($to_send)) {
     $to_send = array(
-        'shortName' => 'Chyba',
-        'fullName' => 'Chyba :(',
-        'speakerDescription' => 'Jejda. Neplatná přednáška. Pokud jste se sem dostali omylem, kontaktujte někoho zodpovědného.'
+        'speakers' => array(
+            0 => array(
+                'shortName' => 'Chyba :(',
+                'description' => 'Jejda. Neplatná přednáška. Pokud jste se sem dostali omylem, kontaktujte někoho zodpovědného.'
+                )
+            ),
+        'speakerName' => 'Chyba'
         );
 }
 

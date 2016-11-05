@@ -73,12 +73,12 @@
     <div id="main" class="row">
         <p class="centered">Program Symposionu denně bují a kypí, kompletní harmonogram Vám přineseme již brzy. Můžete se těšit například na tyto přednášky:</p>
       <p class="centered">
-        {{#speakers}}
+        {{#talks}}
         <a href="profil.php?id={{id}}">
-          <strong>{{shortName}}</strong>
+          <strong>{{speakerName}}</strong>
           {{#talkName}} — <span class="talkName">{{talkName}}</span>{{/talkName}}<br>
         </a>
-        {{/speakers}}
+        {{/talks}}
       </p>
     </div>
   </div>

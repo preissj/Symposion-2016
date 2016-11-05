@@ -3,7 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-  <title>{{shortName}} | Profil | Symposion GJK 2016</title>
+  <title>{{speakerName}} | Profil | Symposion GJK 2016</title>
   <meta name="description" content="Symposion je přednáškové fórum pořádané studenty Gymnázia Jana Keplera. Letošní ročník se uskuteční ve dnech 16. - 18. listopadu 2016. Těšit se můžete na řadu osobností nejen české akademické scény.">
   <meta name="author" content="Jan Preiss, Václav Volhejn">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,13 +62,15 @@
     </nav>
     
     <div id="main" class="row justified">
+    {{#speakers}}
       <h4 class="topMarginated">
       {{#fullName}}{{fullName}}{{/fullName}}
       {{^fullName}}{{shortName}}{{/fullName}} {{! Nahradit krátkým jménem}}
       </h4>
-      {{{speakerDescription}}}
+      {{{description}}}
+    {{/speakers}}
       <h5>{{talkName}}</h5>
-      {{{talkDescription}}}
+      {{{description}}}
     </div>
   </div>
 

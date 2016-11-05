@@ -56,18 +56,40 @@ function formatText (s, positionHint, cell) {
 
 function parseDetails (response) {
   var rows = response.values
-  let result = {}
-  result.speakers = rows.map((row, i) => {
-    return {
+  let talks = rows.map((row, i) => {
+    let speaker = {
       shortName: row[0],
       fullName: row[1],
-      speakerDescription: formatText(row[2], row[0], 'C' + (i + 5)),
+      description: formatText(row[2], row[0], 'C' + (i + 5))
+    }
+    return {
+      speakers: [speaker],
       talkName: row[3],
-      talkDescription: formatText(row[4], row[0], 'E' + (i + 5))
+      description: formatText(row[4], row[0], 'E' + (i + 5))
     }
   })
-  for (var i = 0; i < result.speakers.length; i++) {
-    result.speakers[i].id = i
+
+  let result = {talks: []}
+  for (let i = 0; i < talks.length; i++) {
+    let multi = false
+    if (typeof talks[i].talkName !== 'undefined') {
+      for (let j = 0; j < result.talks.length; j++) {
+        if (result.talks[j].talkName === talks[i].talkName) {
+          multi = true
+          result.talks[j].description += talks[i].description
+          result.talks[j].speakers.push(talks[i].speakers[0]) // always only one
+          break
+        }
+      }
+    }
+    if (!multi) result.talks.push(talks[i])
+  }
+
+  for (let i = 0; i < result.talks.length; i++) {
+    result.talks[i].id = i
+    result.talks[i].speakerName = result.talks[i].speakers
+      .map(a => a.shortName)
+      .reduce((a, b) => a + ', ' + b)
   }
   return result
 }
@@ -127,7 +149,7 @@ function main () {
         }
       }
       // console.dir(json, {depth: null})
-      fs.writeFile('data_demo.json', JSON.stringify(json))
+      fs.writeFile('data.json', JSON.stringify(json))
     })
   })
 }
