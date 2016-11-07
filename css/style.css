@@ -74,6 +74,7 @@
 nav
 {
   margin-top: 5%;
+  max-width: 800px;
 }
 .image
 {
@@ -119,6 +120,57 @@ a
 a:hover
 {
   color:rgb(150,150,150);
+}
+.full
+{
+  max-width: 1000px !important;
+  width: 95%;
+}
+@media (max-width:870px){
+  td
+  {
+    width: 100%;
+    float: left;
+    vertical-align: middle;
+  }
+  thead
+  {
+    display: none;
+  }
+  tr{
+    border-top: 1px solid #E1E1E1;
+  }
+  td, th
+  {
+    border: 0px;
+  }
+  td:nth-child(2)::before{
+    content: "Aula - ";
+    font-style: italic;
+  }
+  td:nth-child(3)::before{
+    content: "USV - ";
+    font-style: italic;
+  }
+  td:nth-child(4)::before{
+    content: "Sborovna - ";
+    font-style: italic;
+  }
+  td:nth-child(5)::before{
+    content: "P2.1 - ";
+    font-style: italic;
+  }
+  td:nth-child(6)::before{
+    content: "P2.2 - ";
+    font-style: italic;
+  }
+  td:nth-child(7)::before{
+    content: "P2.3 - ";
+    font-style: italic;
+  }
+  .centered::before{
+    content: "" !important;
+  }
 }
 @media (min-width:600px){
   #menu li
