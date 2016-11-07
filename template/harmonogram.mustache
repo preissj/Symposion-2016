@@ -71,6 +71,8 @@
               <th class="centered">2. blok</th>
               <th class="centered">3. blok</th>
               <th class="centered">4. blok</th>
+              <th class="centered">5. blok</th>
+              <th class="centered">6. blok</th>
             </tr>
           </thead>
           <tbody>
@@ -78,9 +80,12 @@
           <tr>
             <th>{{{timeslot}}}</th>  {{! neescapovat <br>}}
             {{^events}}
-              <td colspan="4" class="centered">{{specialEvent}}</td>
+              <td colspan="6" class="centered">{{specialEvent}}</td>
             {{/events}} {{#events}}
-              <td><a href="profilDemo.html?MichalSkrejpek">{{.}}</a></td>
+              <td>
+                {{#id}}<a href="profil.php?id={{id}}">{{displayName}}</a>{{/id}}
+                {{^id}}{{displayName}}{{/id}}
+              </td>
             {{/events}}
           </tr>
           {{/times}}

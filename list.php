@@ -10,5 +10,5 @@ $m = new Mustache_Engine(array(
 $data_json = file_get_contents('scraper/data.json');
 $data = json_decode($data_json, true);
 
-echo $m->render('harmonogram', $data);
+echo $m->render('list', $data);
 ?>
