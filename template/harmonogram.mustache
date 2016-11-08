@@ -82,9 +82,8 @@
             {{^events}}
               <td colspan="6" class="centered">{{specialEvent}}</td>
             {{/events}} {{#events}}
-              <td>
-                {{#id}}<a href="profil.php?id={{id}}">{{displayName}}</a>{{/id}}
-                {{^id}}{{displayName}}{{/id}}
+              <td {{^displayName}}class="empty"{{/displayName}}>
+                {{#displayName}}<a href="profil.php?id={{id}}">{{displayName}}</a>{{/displayName}}
               </td>
             {{/events}}
           </tr>
