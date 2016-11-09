@@ -82,8 +82,13 @@
             {{^events}}
               <td colspan="6" class="centered">{{specialEvent}}</td>
             {{/events}} {{#events}}
-              <td {{^displayName}}class="empty"{{/displayName}}>
-                {{#displayName}}<a href="profil.php?id={{id}}">{{displayName}}</a>{{/displayName}}
+              <td {{^speakerName}}class="empty"{{/speakerName}}>
+                {{#speakerName}}
+                  <a href="profil.php?id={{id}}">
+                    <strong>{{speakerName}}{{#talkName}}:{{/talkName}}</strong>
+                    {{talkName}}
+                    </a>
+                {{/speakerName}}
               </td>
             {{/events}}
           </tr>
