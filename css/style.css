@@ -20,6 +20,17 @@
   }
 }
 
+.ribbon{
+  padding: 0.2em 0 0.2em;
+  height: 100px;
+  width: 100%;
+  background-color:rgb(233,97,102);
+  color: white;
+  text-align: center;
+  font-size: 2.2em;
+  margin-bottom: 1.5em;
+}
+
 #main
 {
     animation-duration: 0.7s;
@@ -31,11 +42,10 @@
 #menu
 {
 	list-style-type:none;
-    height: 150px;
+    height: 100px;
+    line-height: 100px;
 	width:100%;
 	margin:auto;
-	padding-top:5px;
-	padding-bottom:5px;
 	transition:700ms;
 }
 #menu li
@@ -45,10 +55,10 @@
 	width:100%;
 	line-height:40px;
 	display:block;
-	font-size:1.5em;
+	font-size:0.8em;
 	font-weight:300;
 	letter-spacing:1.0px;
-	color:rgb(150,150,150);
+	color:white;
 }
 #menu li a
 {
@@ -60,7 +70,7 @@
 }
 #menu li a:hover
 {
-  color:rgb(233,97,102);
+  color:#FFDADB;
 }
 .mediator
 {
@@ -127,15 +137,6 @@ a:hover
 .container.limited
 {
   max-width: 800px;
-}
-.ribbon{
-  width: 100%;
-  height: 4em;
-  line-height: 4em;
-  background-color:rgb(233,97,102);
-  color: white;
-  text-align: center;
-  font-size: 1.5em;
 }
 
 @media (max-width:870px){
@@ -207,6 +208,6 @@ a:hover
   }
   nav
   {
-    margin-top: 2.5em
+    margin-top: 1em
   }
 }
