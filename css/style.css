@@ -73,7 +73,7 @@
 }
 nav
 {
-  margin-top: 5%;
+  margin: 4em auto 0 auto;
   max-width: 800px;
 }
 .image
@@ -121,10 +121,12 @@ a:hover
 {
   color:rgb(150,150,150);
 }
-.full
+.container{
+  max-width: 1400px;
+}
+.container.limited
 {
-  max-width: 1000px !important;
-  width: 95%;
+  max-width: 800px;
 }
 @media (max-width:870px){
   td
@@ -170,6 +172,9 @@ a:hover
   }
   .centered::before{
     content: "" !important;
+  }
+  .empty{
+    display: none;
   }
 }
 @media (min-width:600px){
