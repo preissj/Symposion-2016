@@ -199,16 +199,18 @@ a:hover
   display: block !important;
   width: 6% !important;
   }
-  #menu
-  {
-    height: 80px;
-  }
   #banner
   {
     width: 50%;
   }
-  nav
+}
+@media (max-width:599px){
+  #menu
   {
-    margin-top: 1em
+    height: auto;
+  }
+  .ribbon
+  {
+    height: 200px;
   }
 }
