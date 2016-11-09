@@ -37,6 +37,7 @@
     transition-timing-function: ease-in;
     animation-fill-mode: both;
     animation-name: fadeInUp;
+    padding-bottom: 2em;
 }
 
 #menu
