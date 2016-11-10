@@ -106,13 +106,16 @@ function parseHarmonogram (response) {
     if (r.length === 0) continue // skip empty rows
     if (/^\d.*/.test(r[0])) { // time segment (starts with a number)
       let curTime = {}
-      if (/.*\d$/.test(r[0])) {
+      if (/.*\d$/.test(r[0])) { // ends with a number - no special event
         curTime.timeslot = r[0]
         curTime.events = r.slice(1).map(x => ({name: x}))
         longest = Math.max(longest, curTime.events.length)
       } else {
-        curTime.timeslot = r[0].substring(0, r[0].lastIndexOf(' '))
-        curTime.specialEvent = r[0].substring(r[0].lastIndexOf(' ') + 1)
+        let split = r[0].match(/^([\d:]* - [\d:]*) (.*)$/)
+        curTime.timeslot = split[1]
+        curTime.specialEvent = split[2]
+        //curTime.timeslot = r[0].substring(0, r[0].lastIndexOf(' '))
+        //curTime.specialEvent = r[0].substring(r[0].lastIndexOf(' ') + 1)
       }
       curTime.timeslot = curTime.timeslot.replace(/ /g, '<br>')
       curDay.times.push(curTime)
@@ -138,7 +141,7 @@ function findID (talks, name) {
   let best = -1000000
   let id = -1
   talks.forEach(talk => {
-    let diff = jsdiff.diffChars(name + ' ', talk.speakerName + ' ' + talk.talkName || '')
+    let diff = jsdiff.diffChars(name + ' ', talk.speakerName + ' — ' + talk.talkName || '')
     let value = 0
     diff.map((part) => {
       if (part.removed) value--
@@ -149,13 +152,13 @@ function findID (talks, name) {
       id = talk.id
     }
   })
-  let diff = jsdiff.diffChars(name + ' ', talks[id].speakerName + ' ' + talks[id].talkName || '')
+  let diff = jsdiff.diffChars(name + ' ', talks[id].speakerName + ' — ' + talks[id].talkName || '')
   diff.forEach(function (part) {
     var color = part.added ? 'green'
       : part.removed ? 'red' : 'grey'
     process.stderr.write(part.value[color])
   })
-  console.log('\n')
+  console.log('')
   return id
 }
 
@@ -173,7 +176,7 @@ function findIDs (json) {
         cur.id = id
         cur.speakerName = json.talks[id].speakerName
         if (json.talks[id].talkName) cur.talkName = json.talks[id].talkName
-        console.log(cur)
+        console.log(cur.speakerName + '\n')
         cur = json.days[i].times[j].events[k]
       }
     }
@@ -195,8 +198,6 @@ function main () {
           json[key] = res[i][key]
         }
       }
-      // json = findIDs(json)
-
       // console.dir(json, {depth: null})
       json = findIDs(json)
       fs.writeFile('data.json', JSON.stringify(json))
