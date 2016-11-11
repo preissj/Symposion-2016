@@ -142,9 +142,18 @@ a:hover
 .media
 {
   max-width: 95%;
+  height: 80px;
   margin: 0 auto 0 auto
 }
-@media (max-width:870px){
+/*.media.landscape
+{
+  width: 40%;
+}
+.media.portrait
+{
+  width: 10%;
+}*/
+@media (max-width:880px){
   td
   {
     width: 100%;
@@ -216,5 +225,17 @@ a:hover
   .ribbon
   {
     height: 200px;
+  }
+}
+@media(max-width:441px){
+  .media
+  {
+    display: block;
+    height: auto;
+    width: 95%;
+  }
+  .media.portrait
+  {
+    width: 20%;
   }
 }
