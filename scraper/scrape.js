@@ -95,6 +95,7 @@ function parseDetails (response) {
 }
 
 function parseHarmonogram (response) {
+  const COLS = 6
   let rows = response.values
   let res = {days: []}
   res.rooms = rows[0].slice(1)
@@ -106,31 +107,40 @@ function parseHarmonogram (response) {
     if (r.length === 0) continue // skip empty rows
     if (/^\d.*/.test(r[0])) { // time segment (starts with a number)
       let curTime = {}
+      curTime.events = r.slice(1).map(x => ({name: x}))
+      while (curTime.events.length < COLS) {
+        curTime.events.push({name: ''})
+      }
+
+      longest = Math.max(longest, curTime.events.length)
       if (/.*\d$/.test(r[0])) { // ends with a number - no special event
         curTime.timeslot = r[0]
-        curTime.events = r.slice(1).map(x => ({name: x}))
-        longest = Math.max(longest, curTime.events.length)
       } else {
         let split = r[0].match(/^([\d:]* - [\d:]*) (.*)$/)
         curTime.timeslot = split[1]
         curTime.specialEvent = split[2]
-        //curTime.timeslot = r[0].substring(0, r[0].lastIndexOf(' '))
-        //curTime.specialEvent = r[0].substring(r[0].lastIndexOf(' ') + 1)
       }
       curTime.timeslot = curTime.timeslot.replace(/ /g, '<br>')
+      if (curTime.specialEvent) {
+        let cnt = 0
+        for (let i = curTime.events.length - 1; i >= 0; i--) {
+          if (curTime.events[i].name.length === 0) {
+            cnt++
+            if (i === 0 || curTime.events[i - 1].name.length > 0) {
+              curTime.events[i].name = curTime.specialEvent
+              curTime.events[i].special = true
+              curTime.events[i].cols = cnt
+              curTime.events.splice(i + 1, cnt - 1)
+            }
+          } else cnt = 0
+        }
+      }
       curDay.times.push(curTime)
     } else {
       if (curDay.name !== undefined) {
         res.days.push(curDay)
       }
       curDay = {name: r[0], times: []}
-    }
-  }
-  for (let d of res.days) {
-    for (let t of d.times) {
-      if (t.events !== undefined) {
-        while (t.events.length < longest) t.events.push({})
-      }
     }
   }
   // res.rows = rows
@@ -172,6 +182,7 @@ function findIDs (json) {
           json.days[i].times[j].events[k].name = ''
           continue
         }
+        if (cur.special) continue
         let id = findID(json.talks, cur.name)
         cur.id = id
         cur.speakerName = json.talks[id].speakerName

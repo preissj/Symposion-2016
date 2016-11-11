@@ -59,7 +59,6 @@
         </nav>
   </div>
   <div  class="container">
-    
     <div id="main" class="row">
       {{#days}}
         <h4>{{name}}</h4>
@@ -79,26 +78,28 @@
           {{#times}}
           <tr>
             <th>{{{timeslot}}}</th>  {{! neescapovat <br>}}
-            {{^events}}
-              <td colspan="6" class="centered">{{specialEvent}}</td>
-            {{/events}} {{#events}}
-              <td {{^speakerName}}class="empty"{{/speakerName}}>
+            {{#events}}
+              {{#special}}
+              <td colspan="{{cols}}" class="centered">{{name}}</td>
+              {{/special}} {{^special}}
+              <td{{^name}} class="empty"{{/name}}>
                 {{#speakerName}}
                   <a href="profil.php?id={{id}}">
                     <strong>{{speakerName}}{{#talkName}}:{{/talkName}}</strong>
                     {{talkName}}
-                    </a>
+                  </a>
+                {{/speakerName}}{{^speakerName}}
+                  {{name}}
                 {{/speakerName}}
               </td>
+              {{/special}}
             {{/events}}
           </tr>
           {{/times}}
           </tbody>
         </table>
       {{/days}}
-
     </div>
   </div>
-
 </body>
 </html>
