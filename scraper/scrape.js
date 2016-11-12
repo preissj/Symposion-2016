@@ -18,18 +18,18 @@ function checkText (s, positionHint, cell) {
     console.error('Odstraněny dvojité mezery.')
   }
   ['“', '”', '„', '“', '´´'].forEach((c) => replaceAll(c, '"'))
-  ;['‘', '’', '‚', '‘'].forEach((c) => replaceAll(c, "'"))
+  //;['‘', '’', '‚', '‘'].forEach((c) => replaceAll(c, "'"))
 
   if ((s.match(/"/g) || []).length % 2) {
     console.error('Lichý počet uvozovek:\t' + sOrig)
     return s
   }
-  if ((s.match(/'/g) || []).length % 2) {
+  /*if ((s.match(/'/g) || []).length % 2) {
     console.error('Lichý počet jednoduchých uvozovek:\t' + sOrig)
     return s
-  }
+  }*/
   replaceAll('"(.*?)"', '„$1“')
-  replaceAll("'(.*?)'", '‚$1‘')
+  //replaceAll("'(.*?)'", '‚$1‘')
   replaceAll(' - ', ' – ') // en dash
   replaceAll('\\.\\.\\.', '…') // ellipsis
   replaceAll('[ \\n]$', '')
