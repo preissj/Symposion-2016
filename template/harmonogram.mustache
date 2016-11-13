@@ -93,12 +93,9 @@
           <thead>
             <tr>
               <th class="centered">Čas</th>
-              <th class="centered">Aula</th>
-              <th class="centered">USV</th>
-              <th class="centered">Sborovna</th>
-              <th class="centered">P2.1</th>
-              <th class="centered">P2.2</th>
-              <th class="centered">P2.3</th>
+              {{#rooms}}
+              <th {{#noCenter}}style="text-align: left"{{/noCenter}}>{{.}}</th>
+              {{/rooms}}
             </tr>
           </thead>
           <tbody>
@@ -110,14 +107,17 @@
               <td colspan="{{cols}}" class="centered">{{name}}</td>
               {{/special}} {{^special}}
               <td{{^name}} class="empty"{{/name}}>
-                {{#speakerName}}
+                {{#link}}
                   <a href="profil.php?id={{id}}">
-                    <strong>{{speakerName}}{{#talkName}}:{{/talkName}}</strong>
-                    {{talkName}}
+                    {{#speakerName}} {{! s autorem}}
+                    <strong>{{speakerName}}{{#talkName}}:{{/talkName}}</strong> {{talkName}}
+                    {{/speakerName}} {{^speakerName}} {{! bez autora}}
+                    <strong>{{talkName}}</strong>
+                    {{/speakerName}}
                   </a>
-                {{/speakerName}}{{^speakerName}}
+                {{/link}}{{^link}}
                   {{name}}
-                {{/speakerName}}
+                {{/link}}
               </td>
               {{/special}}
             {{/events}}

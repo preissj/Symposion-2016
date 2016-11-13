@@ -96,11 +96,12 @@ function parseDetails (response) {
 
 function parseHarmonogram (response) {
   const COLS = 6
+  let cols = COLS
   let rows = response.values
   let res = {days: []}
   res.rooms = rows[0].slice(1)
   rows = rows.slice(1)
-  rows.push([['x']]) // dummy row to add the last day
+  rows.push(['x']) // dummy row to add the last day
   let curDay = {}
   let longest = 0
   for (let r of rows) {
@@ -108,7 +109,7 @@ function parseHarmonogram (response) {
     if (/^\d.*/.test(r[0])) { // time segment (starts with a number)
       let curTime = {}
       curTime.events = r.slice(1).map(x => ({name: x}))
-      while (curTime.events.length < COLS) {
+      while (curTime.events.length < cols) {
         curTime.events.push({name: ''})
       }
 
@@ -141,6 +142,13 @@ function parseHarmonogram (response) {
         res.days.push(curDay)
       }
       curDay = {name: r[0], times: []}
+      cols = COLS
+      if (r.length > 1) {
+        r.splice(0, 1)
+        curDay.rooms = r
+        cols = curDay.rooms.length
+        if(cols < 4) curDay.noCenter = true
+      }
     }
   }
   // res.rows = rows
@@ -185,6 +193,7 @@ function findIDs (json) {
         if (cur.special) continue
         let id = findID(json.talks, cur.name)
         cur.id = id
+        cur.link = true
         cur.speakerName = json.talks[id].speakerName
         if (json.talks[id].talkName) cur.talkName = json.talks[id].talkName
         console.log(cur.speakerName + '\n')
