@@ -143,16 +143,18 @@ a:hover
 {
   max-width: 95%;
   height: 80px;
-  margin: 0 auto 0 auto
-}
-/*.media.landscape
-{
-  width: 40%;
+  margin: 0 auto 0 auto;
+  padding: 20px 10px 20px;
 }
 .media.portrait
 {
+  padding: 0;
+  height: 120px;
+}
+.media.goout
+{
   width: 10%;
-}*/
+}
 @media (max-width:880px){
   td
   {
@@ -227,15 +229,29 @@ a:hover
     height: 200px;
   }
 }
-@media(max-width:441px){
+/*@media(max-width:441px){*/
   .media
   {
     display: block;
-    height: auto;
-    width: 95%;
+    height: auto !important;
+    width: 50%;
   }
   .media.portrait
   {
+    width: 25%;
+  }
+/*}*/
+@media(max-width:700px){
+  .media
+  {
+    width:80%;
+  }
+  .media.portrait
+  {
+    width: 50%;
+  }
+  .media.goout{
     width: 20%;
   }
+  
 }
