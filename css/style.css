@@ -197,7 +197,7 @@ a:hover
     content: "P2.3 - ";
     font-style: italic;
   }
-  .centered::before{
+  .special::before{
     content: "" !important;
   }
   .empty{
