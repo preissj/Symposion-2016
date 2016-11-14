@@ -161,10 +161,7 @@
           <tr>
             <th>{{{timeslot}}}</th>  {{! neescapovat <br>}}
             {{#events}}
-              {{#special}}
-              <td colspan="{{cols}}" class="centered">{{name}}</td>
-              {{/special}} {{^special}}
-              <td{{^name}} class="empty"{{/name}}>
+              <td class="centered"{{^name}} class="empty"{{/name}}{{#cols}} colspan="{{cols}}"{{/cols}}>
                 {{#link}}
                   <a href="profil.php?id={{id}}">
                     {{#speakerName}} {{! s autorem}}
@@ -177,7 +174,6 @@
                   {{name}}
                 {{/link}}
               </td>
-              {{/special}}
             {{/events}}
           </tr>
           {{/times}}

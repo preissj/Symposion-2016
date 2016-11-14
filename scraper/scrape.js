@@ -190,14 +190,16 @@ function findIDs (json) {
           json.days[i].times[j].events[k].name = ''
           continue
         }
-        if (cur.special) continue
+        if (cur.name === 'Oběd') continue
         let id = findID(json.talks, cur.name)
+        
         cur.id = id
         cur.link = true
         cur.speakerName = json.talks[id].speakerName
         if (json.talks[id].talkName) cur.talkName = json.talks[id].talkName
-        console.log(cur.speakerName + '\n')
-        cur = json.days[i].times[j].events[k]
+        console.log(cur)
+
+        json.days[i].times[j].events[k] = cur
       }
     }
   }
