@@ -151,7 +151,7 @@ function parseHarmonogram (response) {
       }
     }
   }
-  // res.rows = rows
+  res.days.splice(0, 1) // preskocit stredu
   return res
 }
 
