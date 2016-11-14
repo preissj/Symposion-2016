@@ -156,7 +156,7 @@ a:hover
   width: 10%;
 }
 @media (max-width:880px){
-  td
+  table.standard td
   {
     width: 100%;
     float: left;
