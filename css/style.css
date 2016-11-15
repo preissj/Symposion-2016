@@ -255,3 +255,13 @@ a:hover
   }
   
 }
+
+.sandwichCanvas {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.sandwichImg {
+  display: none;
+}
